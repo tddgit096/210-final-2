@@ -1,6 +1,8 @@
 // Final Exam II | Toma Dimov | COMSC210
 #include <iostream>
 #include <list>
+#include <deque>
+#include <vector>
 /*
 Your code must run at each milestone and exercise the structures or programming you just wrote
 
@@ -8,8 +10,10 @@ If you paste in code from a previous assignment, you must:
  (1) write a nearby comment in your code with attribution; and 
  (2) do an immediate commit with a brief explanation in the commit comments
 */
+
+
 using namespace std;
-const int MAXDRINKS = 10, MAXNAMES = 10;
+const int MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10;
 const int ROUNDS = 10, INITIAL_CUSTOMER_COUNT = 3;
 const int JOIN_PROB = 50;
 
@@ -37,11 +41,25 @@ const string names[MAXNAMES] = {
     "Lucas",
     "Mia"
 };
+const string drinks[MAXMUFFINS] = {
+    "Blueberry",
+    "Applepie",
+    "Birthday Cake",
+    "Chocolate Chip",
+    "Double Chocolate",
+    "Red Velvet",
+    "Pecan",
+    "Sesame",
+    "Cream Cheese",
+    "Cinnamon"
+};
+
+const string booth_type
 
 struct customer{
     string name;
     string order;
-    customer(string name = "",string order = ""){
+    customer(string name = "",string order = "", string booth_type){
         if(name=="")
             this->name = names[rand()%MAXNAMES];
         else
@@ -57,7 +75,8 @@ void print(list<customer>);
 
 int main(){
     srand(time(NULL));
-    list<customer> line;
+    list<customer> coffee_line;
+    deque<customer> muffin_line;
 
     for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
         customer temp;
@@ -65,12 +84,12 @@ int main(){
     }
     print(line);
     for(int i = 0; i<ROUNDS;i++){
-        if(!line.empty()){
-            line.pop_front();
+        if(!coffee_line.empty()){
+            coffee_line.pop_front();
         }
         if(rand()%100 < JOIN_PROB){
             customer temp;
-            line.push_back(temp);
+            coffee_line.push_back(temp);
         }
     print(line);
     }
