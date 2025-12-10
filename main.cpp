@@ -112,8 +112,12 @@ struct customer{
     }
 };
 
+void coffee_initiate(list<customer>&);
+void muffin_initiate(deque<customer>&);
 void print_coffee(list<customer>);
 void print_muffin(deque<customer>);
+void coffee_round(list<customer>&);
+void muffin_round(deque<customer>&);
 
 
 int main(){
@@ -121,39 +125,53 @@ int main(){
     list<customer> coffee_line;
     deque<customer> muffin_line;
 
-    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
-        customer temp_coffee(COFFEE);
-        coffee_line.push_back(temp_coffee);
-    }
-    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
-        customer temp_muffin(MUFFIN);
-        muffin_line.push_back(temp_muffin);
-    }
-    print_coffee(coffee_line);
-    print_muffin(muffin_line);
-    for(int i = 0; i<ROUNDS;i++){
-        if(!coffee_line.empty()){
-            coffee_line.pop_front();
-        }
-        if(rand()%100 < JOIN_PROB){
-            customer temp(COFFEE);
-            coffee_line.push_back(temp);
-        }
+    coffee_initiate(coffee_line);
+    muffin_initiate(muffin_line);
 
-        if(!muffin_line.empty()){
-            muffin_line.pop_front();
-        }
-        if(rand()%100 < JOIN_PROB){
-            customer temp(MUFFIN);
-            muffin_line.push_back(temp);
-        }
-    print_coffee(coffee_line);
-    print_muffin(muffin_line);
+    for(int i = 0; i<ROUNDS;i++){
+        coffee_round(coffee_line);
+        muffin_round(muffin_line);
     }
     return 0;
 }
 
-void print(list<customer> L){
+void coffee_initiate(list<customer>& L){
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp_coffee(COFFEE);
+        L.push_back(temp_coffee);
+    }
+    print_coffee(L);
+}
+
+void muffin_initiate(deque<customer>& L){
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp_muffin(MUFFIN);
+        L.push_back(temp_muffin);
+    }
+    print_muffin(L);
+}
+
+void coffee_round(list<customer>& L){
+    if(!L.empty())
+        L.pop_front();
+    if(rand()%100 < JOIN_PROB){
+        customer temp(COFFEE);
+        L.push_back(temp);
+    }
+    print_coffee(L);
+}
+
+void muffin_round(deque<customer>& L){
+    if(!L.empty())
+        L.pop_front();
+    if(rand()%100 < JOIN_PROB){
+        customer temp(MUFFIN);
+        L.push_back(temp);
+    }
+    print_muffin(L);
+}
+
+void print_coffee(list<customer> L){
     if(L.empty()){
         cout<<"Line Empty.\n";
         return;
@@ -164,7 +182,7 @@ void print(list<customer> L){
     cout<<endl;
 }
 
-void print(deque<customer> L){
+void print_muffin(deque<customer> L){
     if(L.empty()){
         cout<<"Line Empty.\n";
         return;
