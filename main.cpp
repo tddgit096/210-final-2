@@ -9,7 +9,9 @@ If you paste in code from a previous assignment, you must:
  (2) do an immediate commit with a brief explanation in the commit comments
 */
 using namespace std;
-const int MAXDRINKS = 10, MAXCUSTOMERS = 10;
+const int MAXDRINKS = 10, MAXNAMES = 10;
+const int ROUNDS = 10, INITIAL_CUSTOMER_COUNT = 3;
+const int JOIN_PROB = 50;
 
 const string drinks[MAXDRINKS] = {
     "Espresso",
@@ -23,7 +25,7 @@ const string drinks[MAXDRINKS] = {
     "Cold Brew",
     "Affogato"
 };
-const string names[MAXDRINKS] = {
+const string names[MAXNAMES] = {
     "Liam",
     "Olivia",
     "Noah",
@@ -39,9 +41,32 @@ const string names[MAXDRINKS] = {
 struct customer{
     string name;
     string order;
+    customer(string name = "",string order = ""){
+        if(name=="")
+            this->name = names[rand()%MAXNAMES];
+        else
+            this->name = name;
+        if(order=="")
+            this->order = order[rand()%MAXDRINKS];
+        else
+            this->order = order;
+    }
 };
 
 int main(){
+    srand(time(NULL));
     list<customer> line;
+
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp;
+        line.push_back(temp);
+    }
+    for(int i = 0; i<ROUNDS;i++){
+        if(rand()%100 < JOIN_PROB){
+            customer temp;
+            line.push_back(temp);
+        }
+        if()
+    }
     return 0;
 }
