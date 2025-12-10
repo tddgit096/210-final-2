@@ -91,32 +91,30 @@ enum BOOTHTYPE {
 struct customer{
     string name;
     string order;
-    customer(string name = "",string order = "", int booth = 0){
-        if(name=="")
-            this->name = names[rand()%MAXNAMES];
-        else
-            this->name = name;
-        if(order=="")
+    customer(int booth){
+        this->name = names[rand()%MAXNAMES];
+        if(order==""){
             switch (booth){
             case COFFEE:
                 this->order = drinks[rand()%MAXDRINKS];
                 break;
             case MUFFIN:
-                this->order = muffins[rand()%MAXDRINKS];
+                this->order = muffins[rand()%MAXMUFFINS];
                 break;
             case BRACELET:
-                this->order = drinks[rand()%MAXDRINKS];
+                this->order = bracelets[rand()%MAXBRACELETS];
                 break;  
             case BALLOON:
-                this->order = drinks[rand()%MAXDRINKS];
+                this->order = balloons[rand()%MAXBALLOONS];
                 break;
-            };     
-        else
-            this->order = order;
+            }
+        }  
     }
 };
 
-void print(list<customer>);
+void print_coffee(list<customer>);
+void print_muffin(deque<customer>);
+
 
 int main(){
     srand(time(NULL));
@@ -124,24 +122,49 @@ int main(){
     deque<customer> muffin_line;
 
     for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
-        customer temp;
-        line.push_back(temp);
+        customer temp_coffee(COFFEE);
+        coffee_line.push_back(temp_coffee);
     }
-    print(line);
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp_muffin(MUFFIN);
+        muffin_line.push_back(temp_muffin);
+    }
+    print_coffee(coffee_line);
+    print_muffin(muffin_line);
     for(int i = 0; i<ROUNDS;i++){
         if(!coffee_line.empty()){
             coffee_line.pop_front();
         }
         if(rand()%100 < JOIN_PROB){
-            customer temp;
+            customer temp(COFFEE);
             coffee_line.push_back(temp);
         }
-    print(line);
+
+        if(!muffin_line.empty()){
+            muffin_line.pop_front();
+        }
+        if(rand()%100 < JOIN_PROB){
+            customer temp(MUFFIN);
+            muffin_line.push_back(temp);
+        }
+    print_coffee(coffee_line);
+    print_muffin(muffin_line);
     }
     return 0;
 }
 
 void print(list<customer> L){
+    if(L.empty()){
+        cout<<"Line Empty.\n";
+        return;
+    }
+    for(auto it : L){
+        cout<<it.name<<" - "<<it.order<<endl;
+    }
+    cout<<endl;
+}
+
+void print(deque<customer> L){
     if(L.empty()){
         cout<<"Line Empty.\n";
         return;
