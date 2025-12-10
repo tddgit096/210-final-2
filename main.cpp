@@ -3,6 +3,7 @@
 #include <list>
 #include <deque>
 #include <vector>
+#include <map>
 /*
 Your code must run at each milestone and exercise the structures or programming you just wrote
 
@@ -13,7 +14,7 @@ If you paste in code from a previous assignment, you must:
 
 
 using namespace std;
-const int MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10;
+const int TOTALBOOTHS = 4, MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10;
 const int ROUNDS = 10, INITIAL_CUSTOMER_COUNT = 3;
 const int JOIN_PROB = 50;
 
@@ -53,19 +54,28 @@ const string drinks[MAXMUFFINS] = {
     "Cream Cheese",
     "Cinnamon"
 };
-
-const string booth_type
+const map<string,int> boothtype = {
+    {"Coffee",1},
+    {"Muffin",2},
+    {"Bracelet",3},
+    {"Balloon Animal",4}
+};
 
 struct customer{
     string name;
     string order;
-    customer(string name = "",string order = "", string booth_type){
+    customer(string name = "",string order = "", int booth = ){
         if(name=="")
             this->name = names[rand()%MAXNAMES];
         else
             this->name = name;
         if(order=="")
-            this->order = drinks[rand()%MAXDRINKS];
+            switch (booth){
+            case boothtype["Coffee"]:
+                this->order = drinks[rand()%MAXDRINKS];
+                break;
+            }    
+
         else
             this->order = order;
     }
