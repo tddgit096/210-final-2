@@ -14,22 +14,10 @@ If you paste in code from a previous assignment, you must:
 
 
 using namespace std;
-const int TOTALBOOTHS = 4, MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10;
+const int TOTALBOOTHS = 4, MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10,MAXBRACELETS = 12, MAXBALLOONS = 10;
 const int ROUNDS = 10, INITIAL_CUSTOMER_COUNT = 3;
 const int JOIN_PROB = 50;
 
-const string drinks[MAXDRINKS] = {
-    "Espresso",
-    "Cappuccino",
-    "Latte",
-    "Americano",
-    "Mocha",
-    "Macchiato",
-    "Flat White",
-    "Cortado",
-    "Cold Brew",
-    "Affogato"
-};
 const string names[MAXNAMES] = {
     "Liam",
     "Olivia",
@@ -42,7 +30,19 @@ const string names[MAXNAMES] = {
     "Lucas",
     "Mia"
 };
-const string drinks[MAXMUFFINS] = {
+const string drinks[MAXDRINKS] = {
+    "Espresso",
+    "Cappuccino",
+    "Latte",
+    "Americano",
+    "Mocha",
+    "Macchiato",
+    "Flat White",
+    "Cortado",
+    "Cold Brew",
+    "Affogato"
+};
+const string muffins[MAXMUFFINS] = {
     "Blueberry",
     "Applepie",
     "Birthday Cake",
@@ -54,28 +54,63 @@ const string drinks[MAXMUFFINS] = {
     "Cream Cheese",
     "Cinnamon"
 };
-const map<string,int> boothtype = {
-    {"Coffee",1},
-    {"Muffin",2},
-    {"Bracelet",3},
-    {"Balloon Animal",4}
+const string bracelets[MAXBRACELETS] = {
+    "Beaded Bracelet",
+    "Charm Bracelet",
+    "Bangle Bracelet",
+    "Cuff Bracelet",
+    "Chain Bracelet",
+    "Anklet (ankle bracelet)",
+    "Stretch Bracelet",
+    "Knot Bracelet",
+    "Hemp Bracelet",
+    "Leather Bracelet",
+    "Silk Thread Bracelet",
+    "Pearl Bracelet",
+};
+const string balloons[MAXBALLOONS] = {
+    "Balloon Dog",
+    "Balloon Swan",
+    "Balloon Giraffe",
+    "Balloon Monkey",
+    "Balloon Elephant",
+    "Balloon Sword",
+    "Balloon Hat",
+    "Balloon Flower",
+    "Balloon Heart",
+    "Balloon Octopus"
+};
+
+enum BOOTHTYPE {
+    COFFEE = 1,
+    MUFFIN = 2,
+    BRACELET = 3,
+    BALLOON = 4
 };
 
 struct customer{
     string name;
     string order;
-    customer(string name = "",string order = "", int booth = ){
+    customer(string name = "",string order = "", int booth = 0){
         if(name=="")
             this->name = names[rand()%MAXNAMES];
         else
             this->name = name;
         if(order=="")
             switch (booth){
-            case boothtype["Coffee"]:
+            case COFFEE:
                 this->order = drinks[rand()%MAXDRINKS];
                 break;
-            }    
-
+            case MUFFIN:
+                this->order = muffins[rand()%MAXDRINKS];
+                break;
+            case BRACELET:
+                this->order = drinks[rand()%MAXDRINKS];
+                break;  
+            case BALLOON:
+                this->order = drinks[rand()%MAXDRINKS];
+                break;
+            };     
         else
             this->order = order;
     }
