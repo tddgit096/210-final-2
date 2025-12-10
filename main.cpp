@@ -93,23 +93,21 @@ struct customer{
     string order;
     customer(int booth){
         this->name = names[rand()%MAXNAMES];
-        if(order==""){
-            switch (booth){
-            case COFFEE:
-                this->order = drinks[rand()%MAXDRINKS];
-                break;
-            case MUFFIN:
-                this->order = muffins[rand()%MAXMUFFINS];
-                break;
-            case BRACELET:
-                this->order = bracelets[rand()%MAXBRACELETS];
-                break;  
-            case BALLOON:
-                this->order = balloons[rand()%MAXBALLOONS];
-                break;
-            }
-        }  
-    }
+        switch (booth){
+        case COFFEE:
+            this->order = drinks[rand()%MAXDRINKS];
+            break;
+        case MUFFIN:
+            this->order = muffins[rand()%MAXMUFFINS];
+            break;
+        case BRACELET:
+            this->order = bracelets[rand()%MAXBRACELETS];
+            break;  
+        case BALLOON:
+            this->order = balloons[rand()%MAXBALLOONS];
+            break;
+        }
+    }  
 };
 
 void coffee_initiate(list<customer>&);
@@ -129,6 +127,7 @@ int main(){
     muffin_initiate(muffin_line);
 
     for(int i = 0; i<ROUNDS;i++){
+        cout<<"====================ROUND "<<i+1<<"====================\n";
         coffee_round(coffee_line);
         muffin_round(muffin_line);
     }
@@ -172,8 +171,9 @@ void muffin_round(deque<customer>& L){
 }
 
 void print_coffee(list<customer> L){
+    cout<<"===Coffee line===\n";
     if(L.empty()){
-        cout<<"Line Empty.\n";
+        cout<<"Line Empty.\n\n";
         return;
     }
     for(auto it : L){
@@ -183,8 +183,9 @@ void print_coffee(list<customer> L){
 }
 
 void print_muffin(deque<customer> L){
+    cout<<"===Muffin line===\n";
     if(L.empty()){
-        cout<<"Line Empty.\n";
+        cout<<"Line Empty.\n\n";
         return;
     }
     for(auto it : L){
