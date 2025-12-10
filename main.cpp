@@ -47,11 +47,13 @@ struct customer{
         else
             this->name = name;
         if(order=="")
-            this->order = order[rand()%MAXDRINKS];
+            this->order = drinks[rand()%MAXDRINKS];
         else
             this->order = order;
     }
 };
+
+void print(list<customer>);
 
 int main(){
     srand(time(NULL));
@@ -61,12 +63,27 @@ int main(){
         customer temp;
         line.push_back(temp);
     }
+    print(line);
     for(int i = 0; i<ROUNDS;i++){
+        if(!line.empty()){
+            line.pop_front();
+        }
         if(rand()%100 < JOIN_PROB){
             customer temp;
             line.push_back(temp);
         }
-        if()
+    print(line);
     }
     return 0;
+}
+
+void print(list<customer> L){
+    if(L.empty()){
+        cout<<"Line Empty.\n";
+        return;
+    }
+    for(auto it : L){
+        cout<<it.name<<" - "<<it.order<<endl;
+    }
+    cout<<endl;
 }
