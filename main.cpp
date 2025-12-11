@@ -4,7 +4,7 @@
 #include <deque>
 #include <vector>
 #include <map>
-
+#include "binaryTree.h";
 /*
 Your code must run at each milestone and exercise the structures or programming you just wrote
 
@@ -128,10 +128,12 @@ int main(){
     list<customer> coffee_line;
     deque<customer> muffin_line;
     vector<customer> bracelet_line;
+    BinaryTree balloon_line;
 
     coffee_initiate(coffee_line);
     muffin_initiate(muffin_line);
     bracelet_initiate(bracelet_line);
+    baloon_line
 
     for(int i = 0; i<ROUNDS;i++){
         cout<<"====================ROUND "<<i+1<<"====================\n";
