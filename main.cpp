@@ -4,15 +4,7 @@
 #include <deque>
 #include <vector>
 #include <map>
-#include "binaryTree.h";
-/*
-Your code must run at each milestone and exercise the structures or programming you just wrote
-
-If you paste in code from a previous assignment, you must:
- (1) write a nearby comment in your code with attribution; and 
- (2) do an immediate commit with a brief explanation in the commit comments
-*/
-
+#include <set>
 
 using namespace std;
 const int TOTALBOOTHS = 4, MAXDRINKS = 10, MAXNAMES = 10, MAXMUFFINS = 10,MAXBRACELETS = 12, MAXBALLOONS = 10;
@@ -114,32 +106,36 @@ struct customer{
 void coffee_initiate(list<customer>&);
 void muffin_initiate(deque<customer>&);
 void bracelet_initiate(vector<customer>&);
+void balloon_initiate(set<customer>&);
 
 void print_coffee(list<customer>);
 void print_muffin(deque<customer>);
 void print_bracelet(vector<customer>);
+void print_balloon(set<customer>);
 
 void coffee_round(list<customer>&);
 void muffin_round(deque<customer>&);
 void bracelet_round(vector<customer>&);
+void balloon_round(set<customer>&);
 
 int main(){
     srand(time(NULL));
     list<customer> coffee_line;
     deque<customer> muffin_line;
     vector<customer> bracelet_line;
-    BinaryTree balloon_line;
+    set<customer> balloon_line;
 
     coffee_initiate(coffee_line);
     muffin_initiate(muffin_line);
     bracelet_initiate(bracelet_line);
-    baloon_line
+    balloon_round(balloon_line);
 
     for(int i = 0; i<ROUNDS;i++){
         cout<<"====================ROUND "<<i+1<<"====================\n";
         coffee_round(coffee_line);
         muffin_round(muffin_line);
         bracelet_round(bracelet_line);
+        balloon_round(balloon_line);
     }
     return 0;
 }
@@ -162,10 +158,18 @@ void muffin_initiate(deque<customer>& L){
 
 void bracelet_initiate(vector<customer>& L){
     for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
-        customer temp_muffin(BRACELET);
-        L.push_back(temp_muffin);
+        customer temp(BRACELET);
+        L.push_back(temp);
     }
     print_bracelet(L);
+}
+
+void balloon_initiate(set<customer>& L){
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp(BALLOON);
+        L.insert(temp);
+    }
+    print_balloon(L);
 }
 
 void coffee_round(list<customer>& L){
@@ -198,6 +202,16 @@ void bracelet_round(vector<customer>& L){
     print_bracelet(L);
 }
 
+void balloon_round(set<customer>& L){
+    if(!L.empty())
+        L.erase(L.begin());
+    if(rand()%100 < JOIN_PROB){
+        customer temp(BRACELET);
+        L.insert(temp);
+    }
+    print_balloon(L);
+}
+
 void print_coffee(list<customer> L){
     cout<<"===Coffee line===\n";
     if(L.empty()){
@@ -223,6 +237,18 @@ void print_muffin(deque<customer> L){
 }
 
 void print_bracelet(vector<customer> L){
+    cout<<"===Bracelet line===\n";
+    if(L.empty()){
+        cout<<"Line Empty.\n\n";
+        return;
+    }
+    for(auto it : L){
+        cout<<it.name<<" - "<<it.order<<endl;
+    }
+    cout<<endl;
+}
+
+void print_balloon(set<customer> L){
     cout<<"===Bracelet line===\n";
     if(L.empty()){
         cout<<"Line Empty.\n\n";
