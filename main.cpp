@@ -112,24 +112,31 @@ struct customer{
 
 void coffee_initiate(list<customer>&);
 void muffin_initiate(deque<customer>&);
+void bracelet_initiate(vector<customer>&);
+
 void print_coffee(list<customer>);
 void print_muffin(deque<customer>);
+void print_bracelet(vector<customer>);
+
 void coffee_round(list<customer>&);
 void muffin_round(deque<customer>&);
-
+void bracelet_round(vector<customer>&);
 
 int main(){
     srand(time(NULL));
     list<customer> coffee_line;
     deque<customer> muffin_line;
+    vector<customer> bracelet_line;
 
     coffee_initiate(coffee_line);
     muffin_initiate(muffin_line);
+    bracelet_initiate(bracelet_line);
 
     for(int i = 0; i<ROUNDS;i++){
         cout<<"====================ROUND "<<i+1<<"====================\n";
         coffee_round(coffee_line);
         muffin_round(muffin_line);
+        bracelet_round(bracelet_line);
     }
     return 0;
 }
@@ -148,6 +155,14 @@ void muffin_initiate(deque<customer>& L){
         L.push_back(temp_muffin);
     }
     print_muffin(L);
+}
+
+void bracelet_initiate(vector<customer>& L){
+    for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
+        customer temp_muffin(BRACELET);
+        L.push_back(temp_muffin);
+    }
+    print_bracelet(L);
 }
 
 void coffee_round(list<customer>& L){
@@ -170,6 +185,16 @@ void muffin_round(deque<customer>& L){
     print_muffin(L);
 }
 
+void bracelet_round(vector<customer>& L){
+    if(!L.empty())
+        L.erase(L.begin());
+    if(rand()%100 < JOIN_PROB){
+        customer temp(BRACELET);
+        L.push_back(temp);
+    }
+    print_bracelet(L);
+}
+
 void print_coffee(list<customer> L){
     cout<<"===Coffee line===\n";
     if(L.empty()){
@@ -184,6 +209,18 @@ void print_coffee(list<customer> L){
 
 void print_muffin(deque<customer> L){
     cout<<"===Muffin line===\n";
+    if(L.empty()){
+        cout<<"Line Empty.\n\n";
+        return;
+    }
+    for(auto it : L){
+        cout<<it.name<<" - "<<it.order<<endl;
+    }
+    cout<<endl;
+}
+
+void print_bracelet(vector<customer> L){
+    cout<<"===Bracelet line===\n";
     if(L.empty()){
         cout<<"Line Empty.\n\n";
         return;
