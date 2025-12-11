@@ -100,23 +100,27 @@ struct customer{
             this->order = balloons[rand()%MAXBALLOONS];
             break;
         }
+    }
+
+    bool operator<(const customer& that)const  { //organize the line by order name, alphabetically.
+        return order < that.order;
     }  
 };
 
 void coffee_initiate(list<customer>&);
 void muffin_initiate(deque<customer>&);
 void bracelet_initiate(vector<customer>&);
-void balloon_initiate(set<customer>&);
+//void balloon_initiate(set<customer>&);
 
 void print_coffee(list<customer>);
 void print_muffin(deque<customer>);
 void print_bracelet(vector<customer>);
-void print_balloon(set<customer>);
+//void print_balloon(set<customer>);
 
 void coffee_round(list<customer>&);
 void muffin_round(deque<customer>&);
 void bracelet_round(vector<customer>&);
-void balloon_round(set<customer>&);
+//void balloon_round(set<customer>&);
 
 int main(){
     srand(time(NULL));
@@ -128,14 +132,14 @@ int main(){
     coffee_initiate(coffee_line);
     muffin_initiate(muffin_line);
     bracelet_initiate(bracelet_line);
-    balloon_round(balloon_line);
+    //balloon_round(balloon_line);
 
     for(int i = 0; i<ROUNDS;i++){
         cout<<"====================ROUND "<<i+1<<"====================\n";
         coffee_round(coffee_line);
         muffin_round(muffin_line);
         bracelet_round(bracelet_line);
-        balloon_round(balloon_line);
+        //balloon_round(balloon_line);
     }
     return 0;
 }
@@ -163,14 +167,14 @@ void bracelet_initiate(vector<customer>& L){
     }
     print_bracelet(L);
 }
-
+/*
 void balloon_initiate(set<customer>& L){
     for(int i=0;i<INITIAL_CUSTOMER_COUNT;i++){
         customer temp(BALLOON);
         L.insert(temp);
     }
     print_balloon(L);
-}
+}*/
 
 void coffee_round(list<customer>& L){
     if(!L.empty())
@@ -201,7 +205,7 @@ void bracelet_round(vector<customer>& L){
     }
     print_bracelet(L);
 }
-
+/*
 void balloon_round(set<customer>& L){
     if(!L.empty())
         L.erase(L.begin());
@@ -211,7 +215,7 @@ void balloon_round(set<customer>& L){
     }
     print_balloon(L);
 }
-
+*/
 void print_coffee(list<customer> L){
     cout<<"===Coffee line===\n";
     if(L.empty()){
@@ -248,7 +252,10 @@ void print_bracelet(vector<customer> L){
     cout<<endl;
 }
 
+/*
 void print_balloon(set<customer> L){
+
+
     cout<<"===Bracelet line===\n";
     if(L.empty()){
         cout<<"Line Empty.\n\n";
@@ -259,3 +266,4 @@ void print_balloon(set<customer> L){
     }
     cout<<endl;
 }
+*/
